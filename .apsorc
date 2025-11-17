@@ -1,0 +1,110 @@
+{
+  "entities": [
+    {
+      "name": "Subscription",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "plan_id",
+          "type": "uuid",
+          "nullable": false,
+          "isIndex": true
+        },
+        {
+          "name": "customer_id",
+          "type": "uuid",
+          "nullable": false,
+          "isIndex": true
+        },
+        {
+          "name": "start_date",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "end_date",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "nullable": false,
+          "default": "'active'",
+          "values": [
+            "'active'",
+            "'pending'",
+            "'completed'"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "fields": [
+            "plan_id",
+            "customer_id"
+          ],
+          "unique": true
+        }
+      ]
+    },
+    {
+      "name": "Plan",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "name",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "amount",
+          "type": "numeric",
+          "nullable": false
+        },
+        {
+          "name": "currency",
+          "type": "varchar",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "name": "Customer",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "name",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "email",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "phone",
+          "type": "varchar",
+          "nullable": true
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": "Subscription",
+      "to": "Plan",
+      "type": "ManyToOne"
+    },
+    {
+      "from": "Subscription",
+      "to": "Customer",
+      "type": "ManyToOne"
+    }
+  ],
+  "_removedEntities": []
+}
